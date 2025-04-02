@@ -7,13 +7,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Fraxiinus.Rofl.Extract.Data;
 
 namespace Fraxiinus.Rofl.Extract.Data.BenchmarkApp;
 
 public class Program
 {
-    public static async Task Main(string[] args)
+    public static async Task Main()
     {
         Console.WriteLine("roflxd.cs Benchmarking Application");
         Console.Write("Enter target folder:");
@@ -91,12 +90,7 @@ public class Program
     {
         try
         {
-            var options = new ReplayReaderOptions
-            {
-                LoadPayload = false,
-                Verbose = false
-            };
-            var rofl = await RoflReader.LoadAsync(replayPath, options);
+            var rofl = await RoflReader.LoadAsync(replayPath, false);
             return rofl.PayloadHeader!.GameId.ToString();
         }
         catch (Exception)
@@ -115,6 +109,7 @@ public class Program
         }
         catch (Exception)
         {
+
             return "FAILURE";
         }
     }
@@ -136,6 +131,7 @@ public class Program
         }
         catch (Exception)
         {
+
             return "FAILURE";
         }
     }
