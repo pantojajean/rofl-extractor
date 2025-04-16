@@ -11,6 +11,8 @@ public class AppDbContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<ConvertedFile> ConvertedFiles { get; set; }
+    
+    public DbSet<MatchStats> MatchStats { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -21,6 +23,9 @@ public class AppDbContext : DbContext
             .IsUnique();
 
         modelBuilder.Entity<ConvertedFile>()
+            .HasIndex(f => f.CreatedAt);
+        
+        modelBuilder.Entity<MatchStats>()
             .HasIndex(f => f.CreatedAt);
     }
 } 

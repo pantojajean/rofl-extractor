@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using RoflWebExtractor.Data;
 using RoflWebExtractor.Services;
@@ -21,6 +22,18 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("RequireAdmin", policy =>
         policy.RequireClaim("IsAdmin", "true"));
 });
+
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 524288000; // 500 MB
+});
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Limits.MaxRequestBodySize = 524288000; // 500 MB
+});
+// No Program.cs
+builder.Logging.AddFilter("Microsoft.AspNetCore", LogLevel.Debug);
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -63,7 +76,7 @@ using (var scope = app.Services.CreateScope())
     // Recriar o banco de dados
     db.Database.EnsureDeleted();
     db.Database.EnsureCreated();
-    
+    //db.Database.Migrate();
     Console.WriteLine("Banco de dados recriado com sucesso!");
 }
 

@@ -39,7 +39,7 @@ body {
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(0px);
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -52,7 +52,7 @@ body {
 .btn-primary:hover {
   background-color: #0b5ed7;
   border-color: #0b5ed7;
-  transform: translateY(-2px);
+  transform: translateY(0px);
 }
 
 .form-control {
